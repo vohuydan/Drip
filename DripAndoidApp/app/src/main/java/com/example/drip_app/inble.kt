@@ -16,13 +16,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.inble_activity.*
 import java.nio.charset.Charset
 import java.util.*
 
 class inble:AppCompatActivity() {
-    private val CHANNEL_ID = "ChannelID"
-    private val notificationID = 101
+
+    private val ACTION_SHOW_INBLE = "ACTION_SHOW_INBLE"
     var chosenGatt: BluetoothGatt? = null
     private var tx: BluetoothGattCharacteristic? = null
     private var rx: BluetoothGattCharacteristic? = null
@@ -30,17 +31,34 @@ class inble:AppCompatActivity() {
     override fun onCreate(savedInstanceState:Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.inble_activity)
+        Log.d("NOTIFICATION", "Inside inBle Oncreate")
+
         device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-        createNotificationChannel()
-        sendNotification()
-        textView3.text = "${device}"
+        if (device == null){
+            Log.d("NOTIFICATION", "DEVICE IS NULL")
+
+        }
+        Log.d("NOTIFICATION", "got device")
+
+        textView3.text = "$device"
 
 
-        device.connectGatt(this, false, gattCallback)
-        Toast.makeText(this, "Bluetooth Connected!", Toast.LENGTH_SHORT).show()
+        startConnection()
         button3.setOnClickListener{send("red")}
         button4.setOnClickListener{send("off")}
         button5.setOnClickListener{send("temp")}
+
+        toggleButton.setOnCheckedChangeListener{_, isChecked->
+            if (isChecked){
+                Toast.makeText(this, "Bluetooth Disonnected!", Toast.LENGTH_SHORT).show()
+                chosenGatt?.disconnect()
+                val serviceIntent  = Intent ( this, DripService::class.java)
+                stopService(serviceIntent)
+            }else{
+                startConnection()
+            }
+
+        }
     }
 
     private val gattCallback = object : BluetoothGattCallback() {
@@ -83,7 +101,7 @@ class inble:AppCompatActivity() {
                     "BluetoothGattCallback",
                     "Discovered ${services.size} services for ${device.address}"
                 )
-                printGattTable() // See implementation just above this section
+                //printGattTable() // See implementation just above this section
                 // Consider connection setup as complete here
             }
             tx = gatt.getService(UART_UUID).getCharacteristic(TX_UUID)
@@ -162,6 +180,9 @@ class inble:AppCompatActivity() {
 
     private fun onReceive(data:String) {
         runOnUiThread {
+            if (data == null){
+                Log.d("ARDUINO DISCONNECT" ,"ARDUINO DIUSCONET")
+            }
             if(data =="left"){
                 textView3.text = "Left Button Pressed"
             }
@@ -222,44 +243,21 @@ class inble:AppCompatActivity() {
     fun BluetoothGattCharacteristic.isNotifiable(): Boolean =
         containsProperty(BluetoothGattCharacteristic.PROPERTY_NOTIFY)
 
+    private fun disconnect(){
 
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Notification Title"
-            val descriptionText = "Notification Description"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
     }
-    private fun sendNotification(){
+    override  fun onDestroy(){
+        super.onDestroy()
 
-        val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this,0,intent,0)
-        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.originalwaterdrop)
-        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.icon_notification)
-            .setLargeIcon(bitmap)
-            .setContentTitle("EXAMPLE TITLE")
-            .setContentText("EXAMPLE DESCRIPTION")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel((false))
-            .setOngoing(true)
-            .setShowWhen(false)
+    }
 
-        with (NotificationManagerCompat.from(this)){
-            notify(notificationID, builder.build())
-        }
+    private fun startConnection(){
+        device.connectGatt(this, false, gattCallback)
+        Toast.makeText(this, "Bluetooth Connected!", Toast.LENGTH_SHORT).show()
+
+        val serviceIntent  = Intent( this, DripService::class.java)
+        serviceIntent.putExtra(BluetoothDevice.EXTRA_DEVICE, device)
+        ContextCompat.startForegroundService(this,serviceIntent)
     }
     companion object{
         // UUIDs for UART service and associated characteristics.
