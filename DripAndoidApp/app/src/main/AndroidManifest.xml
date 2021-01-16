@@ -5,8 +5,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <application
         android:name=".App"
@@ -16,18 +20,20 @@
         android:roundIcon="@mipmap/icon_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name="com.example.drip_app.MainActivity">
+        <activity android:name=".DripDashboard"></activity>
+        <activity android:name=".DripScan" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.drip_app.inble"></activity>
-        <service android:name=".DripService"
-            android:foregroundServiceType="connectedDevice"/>
+        <activity android:name=".inble" />
+
+        <service
+            android:name=".DripService"
+            android:foregroundServiceType="connectedDevice" />
     </application>
 
 </manifest>

@@ -52,12 +52,21 @@ bool leftButtonPressed;
 bool rightButtonPressed;
 bool currleft;
 bool currright;
+const int float1 = 9;
+bool currfloat1;
+const int float2 = 6;
+bool currfloat2;
+int buttonState = 0; 
 void setup(void)
 {
-  CircuitPlayground.begin();
   
+  CircuitPlayground.begin();
+  pinMode(float1, INPUT_PULLUP);
+  pinMode(float2, INPUT_PULLUP);
   currleft = false;
   currright = false;
+  currfloat1 = false;
+  currfloat2 =false;
   Serial.begin(115200);
 
   /* Initialise the module */
@@ -186,6 +195,35 @@ void loop(void)
     CircuitPlayground.clearPixels();
   }
 
+  if (digitalRead(float1) == LOW  && currfloat1 ==false){
+    Serial.println("Float 1: pressed");
+    currfloat1 = true;
+    char output[8];
+    String data = "float1";
+    Serial.println(data);
+    Serial.println();
+    data.toCharArray(output,8);
+    ble.print(data);
+    Serial.println();
+  }else if (digitalRead(float1) == HIGH && currfloat1 == true){
+    currfloat1= false;
+    Serial.println("Float 1: off");
+  }
+  
+  if (digitalRead(float2) == LOW  && currfloat2 ==false){
+    Serial.println("Float 2: pressed");
+    currfloat2 = true;
+    char output[8];
+    String data = "float2";
+    Serial.println(data);
+    Serial.println();
+    data.toCharArray(output,8);
+    ble.print(data);
+    Serial.println();
+  }else if (digitalRead(float2) == HIGH && currfloat2 == true){
+    currfloat2= false;
+    Serial.println("Float 2: off");
+  }
   
   if(red == received){
     Serial.println("RECEIVED RED!!!!"); 

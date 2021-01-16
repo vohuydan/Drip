@@ -1,29 +1,28 @@
 package com.example.drip_app
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.Notification
 import android.bluetooth.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.*
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.inble_activity.*
+import org.jetbrains.anko.notificationManager
 import java.nio.charset.Charset
 import java.util.*
 
-class inble:AppCompatActivity() {
 
-    private val ACTION_SHOW_INBLE = "ACTION_SHOW_INBLE"
+class inble:AppCompatActivity() {
+    private val CHANNEL_ID = "ChannelID"
+    private val NEWIDE= "NEWIDE"
+    private val pattern = longArrayOf(100,300,300,300)
     var chosenGatt: BluetoothGatt? = null
     private var tx: BluetoothGattCharacteristic? = null
     private var rx: BluetoothGattCharacteristic? = null
@@ -34,10 +33,7 @@ class inble:AppCompatActivity() {
         Log.d("NOTIFICATION", "Inside inBle Oncreate")
 
         device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-        if (device == null){
-            Log.d("NOTIFICATION", "DEVICE IS NULL")
 
-        }
         Log.d("NOTIFICATION", "got device")
 
         textView3.text = "$device"
@@ -46,7 +42,7 @@ class inble:AppCompatActivity() {
         startConnection()
         button3.setOnClickListener{send("red")}
         button4.setOnClickListener{send("off")}
-        button5.setOnClickListener{send("temp")}
+        button5.setOnClickListener{vibrate()}
 
         toggleButton.setOnCheckedChangeListener{_, isChecked->
             if (isChecked){
@@ -61,6 +57,17 @@ class inble:AppCompatActivity() {
         }
     }
 
+
+    private fun vibrate(){
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+            Log.d("inside vibrate", "SDK greater than 26")
+        } else {
+            vibrator.vibrate(200)
+            Log.d("inside vibrate", "SDK less than 26")
+        }
+    }
     private val gattCallback = object : BluetoothGattCallback() {
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
             val deviceAddress = gatt.device.address
@@ -180,14 +187,19 @@ class inble:AppCompatActivity() {
 
     private fun onReceive(data:String) {
         runOnUiThread {
-            if (data == null){
-                Log.d("ARDUINO DISCONNECT" ,"ARDUINO DIUSCONET")
-            }
             if(data =="left"){
                 textView3.text = "Left Button Pressed"
+                tempNotification(0)
             }
             if(data =="right"){
                 textView3.text = "Right Button Pressed"
+                tempNotification(0)
+            }
+            if(data == "float1"){
+                tempNotification(1)
+            }
+            if(data == "float2"){
+                tempNotification(2)
             }
         }
 
@@ -250,7 +262,35 @@ class inble:AppCompatActivity() {
         super.onDestroy()
 
     }
+    private fun tempNotification(int: Int){
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.originalwaterdrop)
+        val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val v = longArrayOf(500, 1000)
+        var stringTitle = "Button Pressed"
+        var stringText = "A button was pressed"
+        if (int == 1){
+            stringTitle ="Float 1"
+            stringText = "RODI Water Full"
+        }else if (int == 2){
+            stringTitle ="Float 2"
+            stringText = "Waste Water Full"
+        }
+        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.icon_notification)
+            .setLargeIcon(bitmap)
+            .setContentTitle(stringTitle)
+            .setContentText(stringText)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel((false))
+            .setDefaults(Notification.DEFAULT_ALL)
+            .setShowWhen(false)
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setVibrate(pattern)
+        }
+        notificationManager.notify(1234, builder.build())
+    }
     private fun startConnection(){
         device.connectGatt(this, false, gattCallback)
         Toast.makeText(this, "Bluetooth Connected!", Toast.LENGTH_SHORT).show()

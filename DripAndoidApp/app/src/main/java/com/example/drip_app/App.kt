@@ -24,9 +24,10 @@ class App : Application(){
             val name = "Notification Title"
             val descriptionText = "Notification Description"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply { description = descriptionText }
+            channel.enableLights(true)
+            channel.enableVibration(true)
+
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             notificationManager.createNotificationChannel(channel)

@@ -14,13 +14,16 @@ import androidx.core.app.NotificationCompat
 class DripService:Service() {
     private lateinit var device: BluetoothDevice
     private val CHANNEL_ID = "ChannelID"
+    private val NEWIDE= "NEWIDE"
     override fun onCreate() {
         super.onCreate()
 
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        device = intent!!.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+        if (intent != null) {
+            device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+        }
         createNotification()
 
         return START_NOT_STICKY
@@ -44,10 +47,10 @@ class DripService:Service() {
             .setLargeIcon(bitmap)
             .setContentTitle("Drip is still running")
             .setContentText("Tap for more information or to stop app")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
             .setContentIntent(pendingIntent)
             .setAutoCancel((false))
-            //.setOngoing(true)
+
             .setShowWhen(false)
 
         startForeground(1,builder.build())
