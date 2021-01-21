@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundstar"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/black"
+        android:fontFamily="@font/opensans_semibold"
+        android:gravity="center"
+        android:text="Welcome to Drip!"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50dp"
+                android:background="@color/black"
+                android:fontFamily="@font/opensans_semibold"
+                android:gravity="center"
+                android:text="Hello! Drip was created by Dan Vo as a personal project. "
+                android:textColor="@color/white"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/black"
+                android:fontFamily="@font/opensans_semibold"
+                android:gravity="center"
+                android:text="You will need several things to get this project up and running, continue scrolling to read."
+                android:textColor="@color/white">
+
+            </TextView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/black"
+                android:gravity="center"
+                android:text="You will need..... Adafruit Circuit Playground!"
+
+                android:textColor="@color/white">
+
+            </TextView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="circuitplaygroundboard"
+                android:src="@drawable/circuitplaygound"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/black"
+                android:gravity="center"
+                android:text="And..... Adafruit Flora Bluefruit LE!"
+
+                android:textColor="@color/white">
+
+            </TextView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="florable"
+                android:src="@drawable/florable">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="50dp"
+                android:background="@color/black"
+                android:fontFamily="@font/opensans_semibold"
+                android:gravity="center"
+                android:text="Now you have what you need, connect them in the following order:\n\nCP TX -> Flora RX\nCPRX ->Flora TX \nCP 3.3V ->Flora 3.3V \nCP GND ->Flora_GND \nCP Pin 12 -> Flora Mode\n"
+                android:textColor="@color/white">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lastly, you'll need the Arduino code which can be downloaded from my Github down below"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/opensans_semibold"
+                android:layout_margin="50dp"
+                >
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/github_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/github"
+                android:layout_marginBottom="30dp"
+                ></ImageView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
