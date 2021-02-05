@@ -19,7 +19,7 @@ Drip published to Google Play Store at https://play.google.com/store/apps/detail
 ## Drip Screenshots
 ![dripsplash](https://user-images.githubusercontent.com/77210680/107093873-e8aa8780-67ba-11eb-9876-538d851135cf.JPG)
 ![dripdash](https://user-images.githubusercontent.com/77210680/107093871-e811f100-67ba-11eb-8652-9a02e6b6a3ab.JPG)
-![Drip_scan](https://user-images.githubusercontent.com/77210680/107094654-4095be00-67bc-11eb-9be4-2148da1152a4.png)
+![Drip_scan](https://user-images.githubusercontent.com/77210680/107094735-6c18a880-67bc-11eb-9df7-016117267e44.png)
 ![dripinfo](https://user-images.githubusercontent.com/77210680/107093872-e8aa8780-67ba-11eb-87e6-0ab5fae41d05.JPG)
 
 
