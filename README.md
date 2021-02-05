@@ -15,3 +15,6 @@ Drip v2.0 uploaded to Google Play store and under review <br />
 
 1/27/21<br />
 Drip published to Google Play Store at https://play.google.com/store/apps/details?id=com.drip.drip_app
+
+![Drip_PCB_Front](https://user-images.githubusercontent.com/77210680/107093660-7b96f200-67ba-11eb-8435-cac8884733f9.JPG)
+
