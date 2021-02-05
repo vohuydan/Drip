@@ -14,7 +14,10 @@ Drip contains a fully functioning water overflow detctor. One problem is that th
 Drip v2.0 uploaded to Google Play store and under review <br />
 
 1/27/21<br />
-Drip published to Google Play Store at https://play.google.com/store/apps/details?id=com.drip.drip_app
+Drip published to Google Play Store at https://play.google.com/store/apps/details?id=com.drip.drip_app<br />
+
+1/30/21 <br />
+Designed PCB <br />
 
 ## Drip Screenshots
 ![dripsplash](https://user-images.githubusercontent.com/77210680/107093873-e8aa8780-67ba-11eb-9876-538d851135cf.JPG)
