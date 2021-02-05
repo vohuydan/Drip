@@ -17,10 +17,11 @@ Drip v2.0 uploaded to Google Play store and under review <br />
 Drip published to Google Play Store at https://play.google.com/store/apps/details?id=com.drip.drip_app
 
 ## Drip Screenshots
-![dripdash](https://user-images.githubusercontent.com/77210680/107093871-e811f100-67ba-11eb-8652-9a02e6b6a3ab.JPG)
-![dripinfo](https://user-images.githubusercontent.com/77210680/107093872-e8aa8780-67ba-11eb-87e6-0ab5fae41d05.JPG)
 ![dripsplash](https://user-images.githubusercontent.com/77210680/107093873-e8aa8780-67ba-11eb-9876-538d851135cf.JPG)
-![feature](https://user-images.githubusercontent.com/77210680/107093874-e8aa8780-67ba-11eb-8edd-69683fcb8eab.png)
+![dripdash](https://user-images.githubusercontent.com/77210680/107093871-e811f100-67ba-11eb-8652-9a02e6b6a3ab.JPG)
+![Drip_scan](https://user-images.githubusercontent.com/77210680/107094654-4095be00-67bc-11eb-9be4-2148da1152a4.png)
+![dripinfo](https://user-images.githubusercontent.com/77210680/107093872-e8aa8780-67ba-11eb-87e6-0ab5fae41d05.JPG)
+
 
 
 ### PCB Design
