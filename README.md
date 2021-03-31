@@ -22,6 +22,10 @@ Designed PCB <br />
 2/20/21 <br />
 Redesigning app for use with designed PCB <br />
 
+3/1/21<br />
+Implementing low energy to ATTiny85 and JDY-08.  <br />
+Current Problem -> Drip Device reading Android commands but not doing anything.
+
 ## Drip Screenshots
 ![dripsplash](https://user-images.githubusercontent.com/77210680/107093873-e8aa8780-67ba-11eb-9876-538d851135cf.JPG)
 ![dripdash](https://user-images.githubusercontent.com/77210680/107093871-e811f100-67ba-11eb-8652-9a02e6b6a3ab.JPG)
