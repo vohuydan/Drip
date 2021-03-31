@@ -21,6 +21,7 @@ Designed PCB <br />
 
 2/20/21 <br />
 Redesigning app for use with designed PCB <br />
+ATTiny and JDY-08 replaces the current setup. The JDY-08 is a Bluetooth Low Energy module that communicates at 115000 baud.<br />
 
 3/1/21<br />
 Implementing sleep/ low energy to ATTiny85 and JDY-08. Transitioning to C in Microchip Studio <br />
