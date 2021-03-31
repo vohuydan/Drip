@@ -23,7 +23,7 @@ Designed PCB <br />
 Redesigning app for use with designed PCB <br />
 
 3/1/21<br />
-Implementing low energy to ATTiny85 and JDY-08.  <br />
+Implementing sleep/ low energy to ATTiny85 and JDY-08. Transitioning to C in Microchip Studio <br />
 Current Problem -> Drip Device reading Android commands but not doing anything.
 
 ## Drip Screenshots
